@@ -1,0 +1,13 @@
+{
+  "name": "node-apple-music",
+  "description": "Simple library to fetch Apple Music data without an account",
+  "author": {
+    "name": "Giorgio"
+  },
+  "homepage": "https://github.com/giorgi-o/node-apple-music",
+  "license": "MIT",
+  "version": "1.0.0",
+  "main": "./src/index.js",
+  "type": "module",
+  "dependencies": {}
+}
