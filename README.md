@@ -41,7 +41,7 @@ await fetchSong(1570494674);
     attributes: {
         name: "The Lazy Song",
         url: "https://music.apple.com/us/album/the-lazy-song/576654788?i=576655098",
-        artistName: "Bruno Mars"
+        artistName: "Bruno Mars",
         albumName: "Doo-Wops & Hooligans",
         durationInMillis: 189110,
         releaseDate: "2010-10-04",
