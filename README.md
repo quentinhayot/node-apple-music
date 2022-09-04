@@ -1,6 +1,6 @@
 # node-apple-music
 
-Simple and flexible library with no dependencies to search and fetch music data from Apple Music, without an account.
+Simple and flexible library with no dependencies to search and fetch music data from Apple Music, no account needed.
 
 ## Installing
 
@@ -25,6 +25,8 @@ setToken(token);
 You only need to call one or the other, and the library will use the token for all subsequent requests.
 
 Tokens seem to expire after 6 months, so it is recommended that you store the token somewhere and reuse it.
+
+In theory you could also use an official Apple Music developer token, but I haven't tested this.
 
 
 ### Fetching by ID
@@ -68,13 +70,17 @@ await fetchSong(1570494674);
 }
 ```
 
-`fetchAlbum()`, `fetchArtist()` and `fetchPlaylist()` work similarly.
+Too see the complete list of available fields, check out the [Apple Music API docs](https://developer.apple.com/documentation/applemusicapi/songs/attributes).
+
+`fetchAlbum()`, `fetchArtist()` and `fetchPlaylist()` work the same way.
 
 These functions can also take a second `options` parameter, with the following attributes:
 * `fetchArtists`: Whether to include additional artist data. For `fetchSong()` and `fetchAlbum()` only, defaults to `true`.
 * `fetchAlbum`: Whether to include additional album data. For `fetchSong()` only, defaults to `true`.
 
 To fetch data about other object types, such as music videos or record labels, use `fetchMetadata()`.
+
+To fetch by ISRCs or UPCs, you can use `fetchIsrc()` and `fetchUpc()`.
 
 To fetch additional data using an `href`, use `doRequest()`.
 
