@@ -52,6 +52,9 @@ export const download = (url, options={}) => {
 }
 
 export const doRequest = async (url, params={}, options={}) => {
+    const token = options.token || getToken();
+    if(!token && !options.noAuth) throw new Error("I don't have a token to use! Did you call fetchToken()?");
+
     url = new URL(url, "https://amp-api.music.apple.com");
 
     for(const [key, value] of Object.entries({...params, ...options.params}))
@@ -59,10 +62,11 @@ export const doRequest = async (url, params={}, options={}) => {
 
     return await fetch(url, {
         headers: {
-            "Authorization": `Bearer ${options.token || getToken()}`,
+            "Authorization": `Bearer ${token}`,
             origin: "https://music.apple.com",
             ...options.headers
-        }
+        },
+        ...options.fetchOptions
     });
 }
 

@@ -32,7 +32,7 @@ In theory you could also use an official Apple Music developer token, but I have
 ### Fetching by ID
 
 ```js
-await fetchSong(1570494674);
+await fetchSong(576655098);
 
 {
     id: "576655098",
@@ -75,8 +75,8 @@ Too see the complete list of available fields, check out the [Apple Music API do
 `fetchAlbum()`, `fetchArtist()` and `fetchPlaylist()` work the same way.
 
 These functions can also take a second `options` parameter, with the following attributes:
-* `fetchArtists`: Whether to include additional artist data. For `fetchSong()` and `fetchAlbum()` only, defaults to `true`.
-* `fetchAlbum`: Whether to include additional album data. For `fetchSong()` only, defaults to `true`.
+* `fetchArtists`: include additional artist data. For `fetchSong()` and `fetchAlbum()` only, defaults to `true`.
+* `fetchAlbum`: include additional album data. For `fetchSong()` only, defaults to `true`.
 
 To fetch data about other object types, such as music videos or record labels, use `fetchMetadata()`.
 
@@ -103,15 +103,35 @@ You can also pass an `options` object as the second argument, with the following
 * `limit`: how many of each type to fetch, defaults to `25`
 * `includeTop`: fetch top results across all types, defaults to `true`
 
+`suggestions()` can be used to fetch search suggestions:
+
+```js
+await suggestions("the lazy");
+
+[
+    {kind: "terms", searchTerm: "the lazy song"},
+    {kind: "terms", searchTerm: "bruno mars the lazy song"},
+    {kind: "terms", searchTerm: "the lazys"},
+    {kind: "topResults", content: {...}}, // track object
+    {kind: "topResults", content: {...}},
+    // ...
+]
+```
+
 ### Additional info
 
-Artwork URLs are not ready to use as-is, you need to pass the artwork object to `formatArtworkUrl()`.
+Artwork URLs are not ready to use as-is, you need to pass the artwork object to `formatArtworkUrl()`:
+
+```js
+formatArtworkUrl(song.attributes.artwork);
+formatArtworkUrl(song.attributes.artwork, {size: 1000, format: "webp"});
+```
 
 Most functions take an `options` parameter. In addition to function-specific options, here are the options that they all support:
 * `countryCode`: country code to use. Defaults to `"us"`.
-* `lang`: request language, doesn't seem to change anything however. Use `countryCode` instead. Defaults to 'en-US'.
+* `lang`: request language. Doesn't seem to change anything, use `countryCode` instead. Defaults to `"en-US"`.
 * `returnReq`: return the raw request object, with the HTTP status code, headers and unparsed body.
-* `returnJson`: return the unmodified JSON returned by Apple Music's servers.
+* `returnJson`: return the unmodified JSON sent by Apple Music.
 * `params`: dictionary of additional url-encoded parameters to include in the request
 * `headers`: dictionnary of additional headers to include in the request
 

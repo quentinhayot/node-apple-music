@@ -25,3 +25,24 @@ export const search = async (term, options={}) => {
         results[type] = data.data;
     return results;
 }
+
+export const suggestions = async (term, options={}) => {
+    const params = {
+        term: term,
+        platform: options.platform || "web",
+        types: options.types || "songs,albums,artists",
+        kinds: options.kinds || "terms,topResults",
+        limit: options.limit || 10,
+        l: options.lang || "en-us"
+    };
+
+    const req = await doRequest(`/v1/catalog/${options.countryCode || "us"}/search/suggestions`, params, options);
+
+    if(!req.body) return null;
+    if(options.returnReq) return req;
+
+    const json = JSON.parse(req.body);
+    if(options.returnJson) return json;
+
+    return json.results?.suggestions || json;
+}
