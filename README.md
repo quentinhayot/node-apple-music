@@ -1,6 +1,6 @@
 # node-apple-music
 
-Simple and flexible library with no dependencies to search and fetch music data from Apple Music, no account needed.
+Simple, powerful and flexible library with no dependencies to search and fetch music data from Apple Music, no account needed.
 
 ## Installing
 
@@ -23,8 +23,6 @@ setToken(token);
 ```
 
 You only need to call one or the other, and the library will use the token for all subsequent requests.
-
-Tokens seem to expire after 6 months, so it is recommended that you store the token somewhere and reuse it.
 
 In theory you could also use an official Apple Music developer token, but I haven't tested this.
 
@@ -130,6 +128,7 @@ formatArtworkUrl(song.attributes.artwork, {size: 1000, format: "webp"});
 Most functions take an `options` parameter. In addition to function-specific options, here are the options that they all support:
 * `countryCode`: country code to use. Defaults to `"us"`.
 * `lang`: request language. Doesn't seem to change anything, use `countryCode` instead. Defaults to `"en-US"`.
+* `noAuth`: Don't throw an error when trying to do a request without having an access token. Defaults to `false`.
 * `returnReq`: return the raw request object, with the HTTP status code, headers and unparsed body.
 * `returnJson`: return the unmodified JSON sent by Apple Music.
 * `params`: dictionary of additional url-encoded parameters to include in the request

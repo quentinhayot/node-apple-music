@@ -1,4 +1,5 @@
 import {fetch} from "./util.js";
+import {search} from "./search.js";
 
 let token;
 export const getToken = () => token;
@@ -14,19 +15,13 @@ export const setToken = (jwt) => {
 }
 
 export const fetchToken = async () => {
-    // fetch apple music homepage
-    const req = await fetch("https://music.apple.com/", {
-        followRedirects: true
-    });
+    // fetch token from top secret gist
+    const res = await fetch("https://gist.githubusercontent.com/giorgi-o/bf8cf3261914c48bb46b4a50a1966434/raw");
+    token = res.body.split('\n', 1)[0];
 
-    // find config json
-    const configSearch = req.body.match(/<meta name="desktop-music-app\/config\/environment" content="(.*)">/);
-    if(!configSearch) throw Error("Could not find apple music config in website HTML!");
-
-    // extract token
-    const config = JSON.parse(decodeURIComponent(configSearch[1]));
-    token = config.MEDIA_API.token;
-    return token;
+    // test token
+    const testReq = await search("damn kendrick lamar", {limit: 1, types: "albums", includeTop: true});
+    if(!testReq) throw Error("Apple music anonymous token is invalid! Please create a GitHub issue at giorgi-o/node-apple-music.");
 }
 
 const decodeToken = (jwt) => {

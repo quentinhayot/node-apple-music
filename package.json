@@ -6,7 +6,7 @@
   },
   "homepage": "https://github.com/giorgi-o/node-apple-music",
   "license": "MIT",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "main": "./src/index.js",
   "type": "module",
   "dependencies": {}
