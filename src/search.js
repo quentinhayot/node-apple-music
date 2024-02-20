@@ -3,7 +3,6 @@ import {doRequest} from "./util.js";
 export const search = async (term, options={}) => {
     const params = {
         term: term,
-        platform: options.platform || "web",
         types: options.types || "songs,albums,artists,playlists",
         limit: options.limit || 25,
         l: options.lang || "en-us"
@@ -29,7 +28,6 @@ export const search = async (term, options={}) => {
 export const suggestions = async (term, options={}) => {
     const params = {
         term: term,
-        platform: options.platform || "web",
         types: options.types || "songs,albums,artists",
         kinds: options.kinds || "terms,topResults",
         limit: options.limit || 10,
