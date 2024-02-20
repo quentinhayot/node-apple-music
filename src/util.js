@@ -55,7 +55,7 @@ export const doRequest = async (url, params={}, options={}) => {
     const token = options.token || getToken();
     if(!token && !options.noAuth) throw new Error("I don't have a token to use! Did you call fetchToken()?");
 
-    url = new URL(url, "https://amp-api.music.apple.com");
+    url = new URL(url, "https://api.music.apple.com");
 
     for(const [key, value] of Object.entries({...params, ...options.params}))
         url.searchParams.set(key, `${value}`);
